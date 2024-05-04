@@ -46,7 +46,7 @@ namespace IMS.Controllers
         }
 
         // GET: Sales/Create
-        public IActionResult Create()
+        public IActionResult Create(int? orderId)
         {
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
             return View();
