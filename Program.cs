@@ -1,3 +1,6 @@
+using IMS.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace IMS
 {
     public class Program
@@ -8,6 +11,12 @@ namespace IMS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Configure Entity Framework and the InventoryContext
+            builder.Services.AddDbContext<InventoryContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'CustomerContext' not found.")));
+            
+            
 
             var app = builder.Build();
 
@@ -28,7 +37,7 @@ namespace IMS
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Products}/{action=Index}/{id?}");
 
             app.Run();
         }
